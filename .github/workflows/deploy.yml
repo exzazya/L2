@@ -1,9 +1,9 @@
-name: Deploy Website via FTP
+name: Deploy Laravel L2 via FTP
 
 on:
   push:
     branches:
-      - deploy   # only runs when pushing to the deploy branch
+      - deploy   # deploy branch triggers upload
 
 jobs:
   ftp-deploy:
@@ -13,7 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Upload to FTP
+      - name: Upload full Laravel repo to L2
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_HOST }}
@@ -22,5 +22,5 @@ jobs:
           server-dir: ${{ secrets.FTP_REMOTE_DIR }}/
           protocol: ftp
           port: ${{ secrets.FTP_PORT }}
-          local-dir: ./
+          local-dir: ./       # full repo
           dangerous-clean-slate: false
